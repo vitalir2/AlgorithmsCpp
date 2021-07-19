@@ -11,6 +11,9 @@
 *.gch
 *.pch
 
+# JSON files
+*.json
+
 # Compiled Dynamic libraries
 *.so
 *.dylib
