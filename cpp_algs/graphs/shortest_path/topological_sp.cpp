@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stack>
 #include <limits>
 
@@ -11,6 +12,8 @@ TopologicalSP::TopologicalSP(const WeightedDigraph& graph) : graph_(graph),
 edge_to_(graph.V()), dist_to_(graph.V(), std::numeric_limits<double>::infinity()) {
   TopologicalWeighted tw(graph);
   std::stack<int> order = tw.order();
+  dist_to_[order.top()] = 0;
+
   while (!order.empty()) {
     relaxAdj(order.top());
     order.pop();

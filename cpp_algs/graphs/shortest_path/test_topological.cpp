@@ -16,7 +16,6 @@ int main() {
     std::cin >> v1 >> v2 >> weight;
     graph.addEdge({v1, v2, weight});
   }
-  std::cout << "Source for Dijkstra's algorithm: ";
   TopologicalSP topological(graph);
   for (int v = 0; v < graph.V(); ++v) {
     std::cout << "Shortest path for " << v << ": ";
