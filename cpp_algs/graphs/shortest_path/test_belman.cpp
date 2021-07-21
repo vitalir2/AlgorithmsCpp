@@ -2,6 +2,7 @@
 #include <stack>
 
 #include "bellman_ford.h"
+#include "bellman_ford_queue.h"
 #include "weighted_digraph.h"
 
 int main() {
@@ -20,7 +21,8 @@ int main() {
   std::cout << "Source for Bellman Ford's algorithm: ";
   int source = 0;
   std::cin >> source;
-  BellmanFordSP bellman(graph, source);
+//  BellmanFordSP bellman(graph, source);
+  BellmanFordQSP bellman(graph, source);
   for (int v = 0; v < graph.V(); ++v) {
     std::cout << "Shortest path for " << v << ": ";
     std::stack<WeightedDigraph::Edge> path = bellman.pathTo(v);
