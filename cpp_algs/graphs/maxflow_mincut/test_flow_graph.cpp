@@ -12,6 +12,14 @@ void myAssert(const std::string& name, const std::string& got, const std::string
   }
 }
 
+void testEdgeOther() {
+  int e_from = 0;
+  int e_to = 1;
+  FlowEdge fe {e_from, e_to, 5};
+  myAssert("Edge to, other", std::to_string(fe.other(e_to)), "0");
+  myAssert("Edge from, other", std::to_string(fe.other(e_from)), "1");
+}
+
 void testGraphResidual() {
   int e1_from = 0;
   int e1_to = 1;
@@ -56,6 +64,7 @@ void testAddAndChangeEdge() {
 
 
 int main() {
+  testEdgeOther();
   testGraphResidual();
   testGraphChangeFlow();
   testAddAndChangeEdge();
