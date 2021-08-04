@@ -27,11 +27,7 @@ void countSort(std::vector<std::string>& arr, std::vector<std::string>& aux,
   std::vector<int> count(ascii_size + 2);
   for (const std::string& str: arr) {
     int index = getChar(str, getAppropriateIndex(str, d, max_size));
-    if (index >= 0) {
-      ++count[index + 1 + 1];
-    } else {
-      ++count[0 + 1];
-    }
+    ++count[index + 2];
   }
 
   for (size_t i = 1; i < count.size(); ++i) {
@@ -40,11 +36,7 @@ void countSort(std::vector<std::string>& arr, std::vector<std::string>& aux,
 
   for (size_t i = 0; i < arr.size(); ++i) {
     int index = getChar(arr[i], getAppropriateIndex(arr[i], d, max_size));
-    if (index >= 0) {
-      aux[count[index + 1]++] = arr[i];
-    } else {
-      aux[count[0]++] = arr[i];
-    }
+    aux[count[index + 1]++] = arr[i];
   }
 
   std::copy(aux.begin(), aux.end(), arr.begin());
