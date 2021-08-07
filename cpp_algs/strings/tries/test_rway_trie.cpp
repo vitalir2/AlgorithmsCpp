@@ -1,3 +1,4 @@
+#include <exception>
 #include <iostream>
 #include <string>
 
@@ -23,8 +24,42 @@ void testAt(RWayTrie<int>& trie) {
   std::cout << trie.at(str1).value() << std::endl;
   std::cout << trie.at(str2).value() << std::endl;
 }
+
+void testErase(RWayTrie<int>& trie) {
+  std::cout << "Enter 1 value to delete it from trie\n";
+  std::string str;
+  std::cin >> str;
+  trie.erase(str);
+  __try {
+    trie.at(str);
+  } __catch(...) {
+    std::cout << "Successful erase of " << str << " in trie" << std::endl;
+  }
+}
+
+void testKeys(RWayTrie<int>& trie) {
+  std::cout << "Keys in trie: ";
+  for (const auto& key: trie.keys()) {
+    std::cout << key << " ";
+  }
+  std::cout << std::endl;
+}
+
+void testPrefixKeys(RWayTrie<int>& trie) {
+  std::cout << "Enter prefix to find all keys in trie with it\n";
+  std::string prefix;
+  std::cin >> prefix;
+  for (const auto& key: trie.keys_with_prefix(prefix)) {
+    std::cout << key << " ";
+  }
+  std::cout << std::endl;
+}
+
 int main() {
   RWayTrie<int> trie = testInsert();
   testAt(trie);
+  testErase(trie);
+  testKeys(trie);
+  testPrefixKeys(trie);
   return 0;
 }
