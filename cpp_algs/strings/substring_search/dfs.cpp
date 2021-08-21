@@ -5,45 +5,36 @@
 #include "digraph.h"
 
 Dfs::Dfs(const Digraph& graph) : graph_(graph) {
-  colors.resize(graph.V());
-  distances.resize(graph.V());
-  cc.resize(graph.V());
-  std::fill(colors.begin(), colors.end(), WHITE);
+  marked_.resize(graph.V());
 }
 
 void Dfs::dfs(int source) {
-  source_ = source;
-  int count = 0;
-  for (size_t v = 0; v < graph_.adj_list().size(); ++v) {
-    if (colors[v] == WHITE) {
-      dfsRecursive(v, count);
-      ++count;
-    }
-  }
+  sources_.insert(source);
+  marked_[source] = true;
+  dfsRecursive(source);
 }
 
-void Dfs::dfs(const std::vector<int>& sources) {
+void Dfs::dfs(const std::unordered_set<size_t>& sources) {
   for (int v: sources) {
     dfs(v);
   }
 }
 
-void Dfs::dfsRecursive(int v, int count) {
-  colors[v] = GREY;
-  cc[v] = count;
+void Dfs::dfsRecursive(int v) {
   for (int vertex: graph_.adj_list()[v]) {
-    if (colors[vertex] == WHITE) {
-      dfsRecursive(vertex, count);
-      distances[vertex] = v;
+    if (!marked_[vertex]) {
+      marked_[vertex] = true;
+      dfsRecursive(vertex);
     }
   }
-  colors[v] = BLACK;
 };
 
-bool Dfs::hasPath(int p, int q) {
-  return cc[p] == cc[q];
+void Dfs::clearDfs() {
+  sources_.clear();
+  marked_.clear();
+  marked_.resize(graph_.V());
 }
 
 bool Dfs::marked(int v) const {
-  return colors[v] == BLACK;
+  return marked_[v];
 }

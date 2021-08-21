@@ -4,6 +4,7 @@
 // Depth-First Search
 
 #include <iostream>
+#include <unordered_set>
 #include <vector>
 
 #include "digraph.h"
@@ -14,23 +15,17 @@ public:
   ~Dfs() = default;
 
   void dfs(int source);
-  void dfs(const std::vector<int>& sources);
-  bool hasPath(int p, int q);
+  void dfs(const std::unordered_set<size_t>& sources);
   bool marked(int v) const;
+
+  void clearDfs();
 private:
   Digraph graph_;
-  int source_;
+  std::unordered_set<size_t> sources_;
 
-  using Color = std::string;
-  const Color WHITE = "white";
-  const Color GREY = "grey";
-  const Color BLACK = "black";
+  std::vector<bool> marked_;
 
-  std::vector<Color> colors;
-  std::vector<int> distances;
-  std::vector<int> cc;
-
-  void dfsRecursive(int v, int count);
+  void dfsRecursive(int v);
   
 };
 
